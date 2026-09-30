@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noticias | Colegio Santa Maria</title>
+    <style>body{margin:0;color:#30465e;background:#f5f8fb;font-family:Arial,sans-serif}header,main{width:min(1120px,92vw);margin:auto}header{padding:30px 0}a{color:#126bc1;text-decoration:none}h1{color:#173b67;font:700 48px Georgia,serif}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:24px;background:#fff;border:1px solid #dfe8ef}.card small{color:#126bc1;font-weight:700;text-transform:uppercase}.card h2{color:#173b67;font:700 25px Georgia,serif}.card p{line-height:1.65}.more{display:inline-block;margin-top:12px;font-weight:700}@media(max-width:700px){.grid{grid-template-columns:1fr}h1{font-size:38px}}</style>
+</head>
+<body><header><a href="<?php echo e(route('home')); ?>">← Volver al inicio</a><h1>Noticias y actualidad</h1></header><main><div class="grid"><?php $__empty_1 = true; $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $article): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?><article class="card"><small><?php echo e($article->categoria_nombre ?? 'Colegio'); ?> · <?php echo e($article->fecha_publicacion ? \Illuminate\Support\Carbon::parse($article->fecha_publicacion)->format('d/m/Y') : 'Actualidad'); ?></small><h2><?php echo e($article->titulo); ?></h2><p><?php echo e($article->resumen ?: \Illuminate\Support\Str::limit(strip_tags($article->contenido), 150)); ?></p><a class="more" href="<?php echo e(route('public.news.show', $article->slug)); ?>">Leer noticia ↗</a></article><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><p>No hay noticias publicadas por el momento.</p><?php endif; ?></div><?php echo e($news->links()); ?></main></body>
+</html>
+<?php /**PATH C:\Users\Dnilson\OneDrive\Desktop\Proyecto - copia\resources\views\public\news-index.blade.php ENDPATH**/ ?>

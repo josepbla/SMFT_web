@@ -1,0 +1,1027 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Laravel: serve",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"serve",
+				"--no-reload",
+				"--host=127.0.0.1",
+				"--port=9001"
+			],
+			"isBackground": true,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar migraciones aplicadas",
+			"type": "shell",
+			"command": "C:\\php\\php-8.2.31\\php.exe",
+			"args": [
+				"artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar protección admin",
+			"type": "shell",
+			"command": "curl.exe",
+			"args": [
+				"-s",
+				"-o",
+				"NUL",
+				"-w",
+				"%{http_code}",
+				"http://127.0.0.1:9001/admin"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar versión Laravel",
+			"type": "shell",
+			"command": "C:\\php\\php-8.2.31\\php.exe",
+			"args": [
+				"artisan",
+				"--version"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar protección admin HTTP",
+			"type": "shell",
+			"command": "C:\\Windows\\System32\\curl.exe",
+			"args": [
+				"-s",
+				"-o",
+				"C:\\Users\\Dnilson\\AppData\\Local\\Temp\\admin-check.txt",
+				"-w",
+				"%{http_code}",
+				"http://127.0.0.1:9001/admin"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar redirección admin",
+			"type": "shell",
+			"command": "try { (Invoke-WebRequest -Uri 'http://127.0.0.1:9001/admin' -UseBasicParsing -MaximumRedirection 0).StatusCode } catch { $_.Exception.Response.StatusCode.value__ }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cerrar servidor auxiliar de prueba",
+			"type": "shell",
+			"command": "Get-NetTCPConnection -LocalPort 8090 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { $process = Get-CimInstance Win32_Process -Filter \"ProcessId=$($_.OwningProcess)\"; if ($process.CommandLine -like '*php.exe -S 127.0.0.1:8090*') { Stop-Process -Id $process.ProcessId -Force; 'Stopped temporary PHP HTTP check.' } }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar servidor Laravel activo",
+			"type": "shell",
+			"command": "Get-NetTCPConnection -LocalPort 9001,8090 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort, OwningProcess | Format-Table -AutoSize",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar rutas finales",
+			"type": "shell",
+			"command": "C:\\php\\php-8.2.31\\php.exe",
+			"args": [
+				"artisan",
+				"route:list",
+				"--except-vendor",
+				"--compact"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Identificar procesos PHP de prueba",
+			"type": "shell",
+			"command": "Get-CimInstance Win32_Process | Where-Object { $_.ProcessId -in @(13444,24380) } | Select-Object ProcessId, CommandLine | Format-List",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Cerrar solo servidor de prueba",
+			"type": "shell",
+			"command": "Stop-Process -Id 24380 -Force; Get-NetTCPConnection -LocalPort 9001,8090 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort | Format-Table -AutoSize",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar XAMPP instalado",
+			"type": "shell",
+			"command": "@('C:\\xampp\\xampp_start.exe','C:\\xampp\\mysql\\bin\\mysql.exe','C:\\xampp\\php\\php.exe') | ForEach-Object { '{0}: {1}' -f $_,(Test-Path $_) }; Get-Service | Where-Object { $_.Name -match 'mysql|maria' -or $_.DisplayName -match 'mysql|maria' } | Select-Object Name, Status, DisplayName; Get-NetTCPConnection -LocalPort 3306 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort, OwningProcess",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Consultar base XAMPP disponible",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"--skip-column-names",
+				"-u",
+				"root",
+				"-e",
+				"SHOW DATABASES;"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspeccionar tablas sin modificar XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-e",
+				"SHOW TABLES FROM colegio_santa_maria; SELECT table_name, table_rows FROM information_schema.tables WHERE table_schema='colegio_santa_maria' ORDER BY table_name;"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Listar tablas escolares XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"--skip-column-names",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SHOW TABLES"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar historial escolar XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT migration, batch FROM migrations"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar PHP XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-v"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar PDO MySQL XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-m"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Ver administrador existente XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT nombres, email, rol, estado FROM usuarios"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Limpiar config Laravel XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"config:clear"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar conexión y migraciones XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Aplicar migraciones pendientes sin borrar datos",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"migrate",
+				"--force"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Identificar servidor actual 9001",
+			"type": "shell",
+			"command": "Get-NetTCPConnection -LocalPort 9001 -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Get-CimInstance Win32_Process -Filter \"ProcessId=$($_.OwningProcess)\" | Select-Object ProcessId, CommandLine } | Format-List",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Reiniciar servidor con XAMPP PHP",
+			"type": "shell",
+			"command": "$process = Get-CimInstance Win32_Process -Filter 'ProcessId=13444'; if ($process.CommandLine -like '*C:\\php\\php-8.2.31\\php.exe*127.0.0.1:9001*server.php*') { Stop-Process -Id 13444 -Force; 'Stopped the previous Laravel server process.' } else { throw 'El proceso en 9001 cambió; no se detuvo.' }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar conexión activa MySQL",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"db:show"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar portada con XAMPP MySQL",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar editor de acceso con MySQL",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/login' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Revisar estado de migraciones XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar login administrador MySQL",
+			"type": "shell",
+			"command": "$session = New-Object Microsoft.PowerShell.Commands.WebRequestSession; $page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/login' -WebSession $session -UseBasicParsing; $token = [regex]::Match($page.Content, 'name=\"_token\" value=\"([^\"]+)\"').Groups[1].Value; try { $response = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/login' -Method Post -WebSession $session -UseBasicParsing -MaximumRedirection 0 -Body @{ _token=$token; email='admin@santamariatumbes.edu.pe'; password='Cambiar123!' }; \"HTTP $([int]$response.StatusCode) redirect=$($response.Headers['Location'])\" } catch { $response = $_.Exception.Response; \"HTTP $([int]$response.StatusCode) redirect=$($response.Headers['Location'])\" }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar guardado de administración en XAMPP",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				".verify-admin.ps1"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar controlador de edición MySQL",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				".verify-admin-write.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificación final servidor MySQL",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength; Invoke-WebRequest -Uri 'http://127.0.0.1:9001/login' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificación final esquema XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar archivos temporales retirados",
+			"type": "shell",
+			"command": "@('.verify-admin.ps1','.verify-admin-write.php') | ForEach-Object { '{0}: {1}' -f $_,(Test-Path $_) }; Get-NetTCPConnection -LocalPort 9001 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar límites de carga PHP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-r",
+				"echo 'upload_max_filesize='.ini_get('upload_max_filesize').PHP_EOL.'post_max_size='.ini_get('post_max_size').PHP_EOL;"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar sintaxis controlador de imágenes",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-l",
+				"app\\Http\\Controllers\\AdminDataController.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Compilar vistas tras añadir carga",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar carga real de imagen",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				".verify-image-upload.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar sintaxis final PHP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-l",
+				"app\\Http\\Controllers\\AdminDataController.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar páginas siguen disponibles",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"route:list",
+				"--path=admin/modules",
+				"--except-vendor"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar página y servidor",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength; Get-NetTCPConnection -LocalPort 9001 -State Listen -ErrorAction SilentlyContinue | Select-Object LocalAddress, LocalPort",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Compilar menú público Blade",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar navegación pública HTTP",
+			"type": "shell",
+			"command": "@('/','/servicios','/contacto','/pastoral') | ForEach-Object { $page = Invoke-WebRequest -Uri ('http://127.0.0.1:9001' + $_) -UseBasicParsing -TimeoutSec 15; '{0}: HTTP {1}, muestra inicio de sesión: {2}' -f $_,$page.StatusCode,($page.Content -match 'Iniciar sesión') }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Compilar navegación Administración",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar compilación de menús",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar enlace Administración en portada",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 10; 'HTTP {0}; Administración: {1}; enlace login: {2}' -f $page.StatusCode,($page.Content -match 'Administración'),($page.Content -match 'href=\"http://127.0.0.1:9001/login\"')",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar destino Administración público",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 10; [regex]::Match($page.Content, '<a class=\"nav-cta\" href=\"([^\"]+)\">Administración</a>').Groups[1].Value",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar reparación del arranque",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar rutas y Artisan restaurado",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"route:list",
+				"--except-vendor"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar web tras restaurar Composer",
+			"type": "shell",
+			"command": "@('/','/login','/servicios','/contacto') | ForEach-Object { $page = Invoke-WebRequest -Uri ('http://127.0.0.1:9001' + $_) -UseBasicParsing -TimeoutSec 15; '{0}: HTTP {1}; Administración visible: {2}; Error Composer: {3}' -f $_,$page.StatusCode,($page.Content -match 'Administración'),($page.Content -match 'composer.json') }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar carga imagen XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.verify-image-upload.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Revisar permisos carpeta imágenes",
+			"type": "shell",
+			"command": "$path='C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\public\\uploads\\content'; Get-Item $path -Force | Select-Object FullName,Attributes,Mode; Get-Acl $path | Format-List Owner,AccessToString; 'PHP writable: ' + (& 'C:\\xampp\\php\\php.exe' -r \"var_export(is_writable('C:/Users/Dnilson/OneDrive/Desktop/z/public/uploads/content'));\" ); 'PHP write: ' + (& 'C:\\xampp\\php\\php.exe' -r \"var_export(file_put_contents('C:/Users/Dnilson/OneDrive/Desktop/z/public/uploads/content/.write-check', 'x'));\" )",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Revisar ACL de carpeta de cargas",
+			"type": "shell",
+			"command": "$path='C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\public\\uploads\\content'; Get-Item $path -Force | Select-Object FullName,Attributes,Mode; Get-Acl $path | Format-List Owner,AccessToString",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar escritura PHP en carpeta",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-r",
+				"echo is_writable(\"C:/Users/Dnilson/OneDrive/Desktop/z/public/uploads/content\") ? \"writable\" : \"not-writable\";"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Revisar límites PHP carga",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-r",
+				"echo ini_get(\"upload_max_filesize\"),\"/\",ini_get(\"post_max_size\");"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar escritura directa PHP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.verify-write.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Reprobar carga de imagen XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.verify-image-upload.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar última edición PHP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-l",
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\app\\Http\\Controllers\\AdminDataController.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar servidor corregido",
+			"type": "shell",
+			"command": "$home = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 10; $form = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/login' -UseBasicParsing -TimeoutSec 10; 'Home={0}, ComposerError={1}, Admin link={2}; Login={3}' -f $home.StatusCode,($home.Content -match 'composer.json'),($home.Content -match 'Administración'),$form.StatusCode; 'artisan={0}; composer={1}' -f (Test-Path 'C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan'),(Test-Path 'C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\composer.json')",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Consultar enlaces de redes XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT id_enlace, nombre, url, tipo, orden, activo FROM enlaces ORDER BY orden"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar enlaces sociales visibles",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP {0}; YouTube={1}; Facebook={2}; anchorIncorrecto={3}' -f $page.StatusCode,($page.Content -match 'href=\"https://www.youtube.com/youtube\"'),($page.Content -match 'href=\"https://www.facebook.com/\"'),($page.Content -match 'class=\"social-card[^\"]*\" href=\"#contacto\"'); [regex]::Matches($page.Content, '<a class=\"social-card[^\"]*\" href=\"([^\"]+)\" target=\"_blank\" rel=\"noopener noreferrer\">') | ForEach-Object { $_.Groups[1].Value }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar página Servicios en ejecución",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar enlaces renderizados",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; Write-Output ('YouTube href: ' + $page.Content.Contains('https://www.youtube.com/youtube')); Write-Output ('Facebook href: ' + $page.Content.Contains('https://www.facebook.com/')); Write-Output ('Target blank: ' + $page.Content.Contains('target=\"_blank\" rel=\"noopener noreferrer\"')); Write-Output ('Fallback anchor: ' + $page.Content.Contains('href=\"#contacto\"'))",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspeccionar HTML social renderizado",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; $match = [regex]::Match($page.Content, '<a[^>]*social-card[^>]*>.*?</a>', [System.Text.RegularExpressions.RegexOptions]::Singleline); Write-Output $match.Value",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Revisar redes sociales activas",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT id_enlace, nombre, url, tipo, orden, activo FROM enlaces WHERE tipo='red_social' ORDER BY orden, id_enlace"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspeccionar tarjetas de Servicios actuales",
+			"type": "shell",
+			"command": "$response = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; [regex]::Matches($response.Content, '<a class=\"social-card[^>]*>.*?</a>', [System.Text.RegularExpressions.RegexOptions]::Singleline) | ForEach-Object { $_.Value }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar redes existentes en XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT id_enlace, nombre, url, tipo, orden, activo FROM enlaces ORDER BY orden, id_enlace"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar página Servicios actual",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Compilar gestión de redes sociales",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar tarjetas sociales finales",
+			"type": "shell",
+			"command": "$response = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; $matches = [regex]::Matches($response.Content, '<a class=\"social-card[^>]*>.*?</a>', [System.Text.RegularExpressions.RegexOptions]::Singleline); 'HTTP {0}; tarjetas {1}; sin ancla interna {2}; nuevas pestañas {3}' -f $response.StatusCode,$matches.Count,(-not $response.Content.Contains('href=\"#contacto\"')),($response.Content.Contains('target=\"_blank\"')); $matches | ForEach-Object { [regex]::Match($_.Value, 'href=\"([^\"]+)\"').Groups[1].Value }",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar rutas CRUD de enlaces",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"route:list",
+				"--path=admin/modules/enlaces"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar rutas administrativas enlaces",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"route:list",
+				"--path=admin/modules"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar Servicios en navegador",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar destinos guardados",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"--skip-column-names",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT nombre, url, tipo, activo FROM enlaces WHERE tipo='red_social' ORDER BY orden"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar Servicios sin tarjetas sociales",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar tarjetas eliminadas",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP {0}; tarjetas restantes {1}' -f $page.StatusCode,([regex]::Matches($page.Content, 'social-card').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Compilar Servicios y Pastoral",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar redes en Servicios y Pastoral",
+			"type": "shell",
+			"command": "$services = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; $pastoral = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/pastoral' -UseBasicParsing -TimeoutSec 15; 'Servicios HTTP {0}; tarjetas sociales {1}' -f $services.StatusCode,([regex]::Matches($services.Content, 'social-card').Count); 'Pastoral HTTP {0}; tarjetas sociales {1}' -f $pastoral.StatusCode,([regex]::Matches($pastoral.Content, 'YouTube|Instagram|Facebook').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar Servicios conserva redes",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar Pastoral sin redes",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/pastoral' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar tarjetas de Pastoral ausentes",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/pastoral' -UseBasicParsing -TimeoutSec 15; 'YouTube={0}; Instagram={1}; Facebook={2}' -f $page.Content.Contains('YouTube'),$page.Content.Contains('Instagram'),$page.Content.Contains('Facebook')",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar tarjetas presentes en Servicios",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP={0}; YouTube={1}; Facebook={2}; tarjetas={3}' -f $page.StatusCode,$page.Content.Contains('YouTube'),$page.Content.Contains('Facebook'),([regex]::Matches($page.Content,'social-card').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar editor de galería Servicios",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar carga real de galería",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.verify-gallery-upload.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar galería actual en Servicios",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP {0}; imágenes administrables {1}' -f $page.StatusCode,([regex]::Matches($page.Content,'data-gallery-image=\"').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar ruta de imágenes admin",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"route:list",
+				"--name=site-images"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar limpieza de prueba",
+			"type": "shell",
+			"command": "Test-Path 'C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.verify-gallery-upload.php'",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Consultar configuración del colegio",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT clave, valor FROM configuracion"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar información de Tumbes",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar información Tumbes en Servicios",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP={0}; Tumbes={1}; Lima={2}; correo configurado={3}; teléfono configurado={4}' -f $page.StatusCode,$page.Content.Contains('Tumbes, Peru'),$page.Content.Contains('Los Cedros'),$page.Content.Contains('admisiones@santamaria.edu.pe'),$page.Content.Contains('+51 987 654 321')",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirmar DB migraciones XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar controlador de imágenes del sitio",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-l",
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\app\\Http\\Controllers\\SiteImagesController.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validar controlador de imágenes Pastoral",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"-l",
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\app\\Http\\Controllers\\PastoralController.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Migrar rutas de imágenes a XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.backfill-image-config.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Completar claves de imágenes MySQL",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.backfill-image-config.php"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Verificar claves de imagen en XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\mysql\\bin\\mysql.exe",
+			"args": [
+				"--batch",
+				"--skip-column-names",
+				"-u",
+				"root",
+				"-D",
+				"colegio_santa_maria",
+				"-e",
+				"SELECT clave FROM configuracion ORDER BY clave"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Recompilar vistas tras DB imágenes",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"view:cache"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar imágenes de Servicios desde MySQL",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/servicios' -UseBasicParsing -TimeoutSec 15; 'HTTP={0}; galería DB={1}' -f $page.StatusCode,([regex]::Matches($page.Content,'data-gallery-image=\"').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar imágenes de Pastoral desde MySQL",
+			"type": "shell",
+			"command": "$page = Invoke-WebRequest -Uri 'http://127.0.0.1:9001/pastoral' -UseBasicParsing -TimeoutSec 15; 'HTTP={0}; imágenes Pastoral={1}' -f $page.StatusCode,([regex]::Matches($page.Content,'data-image=\"').Count)",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Probar portada desde MySQL",
+			"type": "shell",
+			"command": "Invoke-WebRequest -Uri 'http://127.0.0.1:9001/' -UseBasicParsing -TimeoutSec 15 | Select-Object StatusCode, RawContentLength",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Reconfirmar migraciones XAMPP",
+			"type": "shell",
+			"command": "C:\\xampp\\php\\php.exe",
+			"args": [
+				"C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\artisan",
+				"migrate:status"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Comprobar script temporal retirado",
+			"type": "shell",
+			"command": "Test-Path 'C:\\Users\\Dnilson\\OneDrive\\Desktop\\z\\.backfill-image-config.php'",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Colegio Santa Maria</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <style>
+        :root { --blue:#126bc1; --navy:#173b67; --coral:#f16b68; --ink:#30465e; --pale:#f5f8fb; --line:#e2e9f0; }
+        * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:var(--pale); font-family:'DM Sans',sans-serif; } a { color:inherit; text-decoration:none; }
+        .topbar { padding:8px 5vw; display:flex; justify-content:space-between; color:#6d7e8d; background:#f7fbfe; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.06em; } .topbar strong { color:var(--blue); }
+        header { min-height:82px; padding:14px 5vw; display:flex; align-items:center; justify-content:space-between; background:#fff; border-bottom:1px solid var(--line); box-shadow:0 2px 10px rgba(22,65,108,.08); } .brand { display:flex; align-items:center; gap:11px; color:var(--navy); font-weight:700; font-size:13px; letter-spacing:.08em; line-height:1.05; text-transform:uppercase; } .crest { width:48px; height:56px; display:block; flex:0 0 auto; } .crest img { width:100%; height:100%; display:block; object-fit:contain; }
+        nav { display:flex; align-items:center; gap:clamp(18px,3vw,42px); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; } nav a { transition:color .2s; } nav a:hover,nav a.active { color:var(--coral); } .nav-cta { padding:11px 16px; color:#fff!important; background:var(--blue); }
+        main { padding:18px 3vw 70px; } #map { height:320px; border-radius:14px; box-shadow:0 4px 14px rgba(36,65,95,.12); z-index:1; } .leaflet-popup-content-wrapper { border-radius:14px; } .leaflet-popup-content { font-family:'DM Sans',sans-serif; font-weight:600; }
+        .nearby { margin-top:22px; padding:24px 20px 8px; background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(36,65,95,.08); } .nearby h2 { margin:0 0 15px; color:#5177d2; font-size:14px; letter-spacing:.05em; text-transform:uppercase; } .school { display:flex; justify-content:space-between; gap:15px; padding:15px 0; border-top:1px solid #edf0f4; color:#5274d1; font-size:14px; } .school span { color:#8b8f99; font-size:12px; }
+        .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:22px; } .card { min-height:235px; padding:22px 20px; background:#fff; border:1px solid #edf0f4; border-radius:14px; box-shadow:0 3px 12px rgba(36,65,95,.08); } .card h2 { margin:0 0 20px; color:#5a78d8; font-size:14px; letter-spacing:.05em; text-transform:uppercase; } .card h2 span { margin-right:7px; color:#ed4380; } .row { display:grid; grid-template-columns:92px 1fr; gap:8px; margin:13px 0; font-size:14px; } .row label { color:#8b8f99; } .row strong { color:#243b55; font-weight:600; }
+        .stats { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; } .stat { padding:11px 7px; text-align:center; background:#f7f8ff; border-radius:10px; } .stat strong { display:block; color:#627ada; font-size:25px; } .stat span { color:#687385; font-size:12px; } .stat-wide { grid-column:span 2; }
+        .carousel-section { margin-top:22px; padding:24px; background:#fff; border-radius:14px; box-shadow:0 3px 12px rgba(36,65,95,.08); } .section-title { margin:0 0 17px; color:var(--navy); font:700 27px 'Playfair Display',serif; } .carousel { position:relative; overflow:hidden; aspect-ratio:16/8; border-radius:3px; background:#dde7ef; } .slide { position:absolute; inset:0; opacity:0; transition:opacity .45s ease; } .slide.active { opacity:1; } .slide img { width:100%; height:100%; display:block; object-fit:cover; } .carousel button { position:absolute; top:50%; z-index:2; width:31px; height:31px; border:0; border-radius:5px; color:#fff; background:rgba(30,54,82,.65); font-size:19px; cursor:pointer; transform:translateY(-50%); } .carousel button:hover { background:var(--blue); } .prev { left:8px; } .next { right:8px; } .dots { display:flex; justify-content:center; gap:9px; padding-top:10px; } .dot { width:9px; height:9px; padding:0; border:0; border-radius:50%; background:#d4d7d9; cursor:pointer; } .dot.active { background:#72a8cf; }
+        footer { padding:22px 5vw; display:flex; justify-content:space-between; color:#fff; background:#1f609e; font-size:13px; }
+        @media(max-width:760px) { .topbar { justify-content:center; } .topbar span:first-child,nav a:not(.nav-cta) { display:none; } header { padding:14px 5vw; } main { padding:10px 3vw 45px; } #map { height:270px; } .cards { grid-template-columns:1fr; } .card { min-height:0; } .carousel-section { padding:16px; } .carousel { aspect-ratio:4/3; } footer { display:block; } footer span { display:block; margin-top:8px; } }
+    </style>
+</head>
+<body>
+    <?php ($siteImages = \App\Http\Controllers\SiteImagesController::all()); ?>
+    <div class="topbar"><span><?php echo e($config['lema'] ?? 'Educación integral · Inicial · Primaria · Secundaria'); ?></span><strong><?php echo e($config['telefono'] ?: 'Admisiones 2027'); ?></strong></div>
+    <header><a class="brand" href="<?php echo e(route('home')); ?>"><span class="crest"><img src="<?php echo e(asset('images/santa-maria-logo.svg')); ?>" alt="Escudo Santa Maria"></span><span><?php echo e($config['nombre_colegio'] ?? 'Colegio Santa Maria'); ?></span></a><?php echo $__env->make('partials.public-nav', ['active' => 'contacto'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?></header>
+    <main>
+        <div id="map" aria-label="Mapa de ubicación del Colegio Santa Maria"></div>
+        <section class="nearby"><h2>🏫 Otros colegios Santa Maria</h2><div class="school"><strong>Santa Maria de la Frontera</strong><span>Primaria — Tumbes</span></div><div class="school"><strong>Santa Maria de la Frontera</strong><span>Secundaria — Tumbes</span></div></section>
+        <section class="cards"><article class="card"><h2><span>📍</span> Ubicación</h2><div class="row"><label>Dirección</label><strong><?php echo e($config['direccion'] ?: 'Tumbes, Perú'); ?></strong></div><div class="row"><label>Distrito</label><strong>Tumbes</strong></div><div class="row"><label>Provincia</label><strong>Tumbes</strong></div><div class="row"><label>Departamento</label><strong>Tumbes</strong></div><div class="row"><label>UGEL</label><strong>UGEL Tumbes</strong></div></article><article class="card"><h2><span>⌕</span> Contacto</h2><div class="row"><label>Teléfono</label><strong><?php echo e($config['telefono'] ?: 'Consulte con recepción'); ?></strong></div><div class="row"><label>Director</label><strong><?php echo e(optional($staff->firstWhere('area', 'directivo'))->nombres ?? 'Dirección académica'); ?></strong></div><div class="row"><label>Turno</label><strong>Mañana</strong></div><div class="row"><label>Correo</label><strong><?php echo e($config['email_contacto'] ?: 'Consulte con recepción'); ?></strong></div></article><article class="card"><h2><span>📊</span> Estadísticas</h2><div class="stats"><div class="stat"><strong><?php echo e($levels->count()); ?></strong><span>Niveles</span></div><div class="stat"><strong><?php echo e($staff->where('area', 'docente')->count()); ?></strong><span>Docentes</span></div><div class="stat stat-wide"><strong><?php echo e($links->count()); ?></strong><span>Enlaces institucionales</span></div></div><div class="row"><label>Actualizado</label><strong><?php echo e(now()->format('d-m-Y')); ?></strong></div></article></section>
+        <section class="carousel-section"><h2 class="section-title">Conoce nuestros espacios</h2><div class="carousel" id="carousel"><div class="slide active"><img src="<?php echo e($siteImages['contact_1']); ?>" alt="Capilla del Colegio Santa Maria"></div><div class="slide"><img src="<?php echo e($siteImages['contact_2']); ?>" alt="Estudiante del Colegio Santa Maria"></div><div class="slide"><img src="<?php echo e($siteImages['contact_3']); ?>" alt="Comunidad educativa Santa Maria"></div><button class="prev" type="button" aria-label="Imagen anterior">‹</button><button class="next" type="button" aria-label="Imagen siguiente">›</button></div><div class="dots" aria-label="Seleccionar imagen"><button class="dot active" type="button" aria-label="Imagen 1"></button><button class="dot" type="button" aria-label="Imagen 2"></button><button class="dot" type="button" aria-label="Imagen 3"></button></div></section>
+    </main>
+    <footer><span>Carretera Tumbes Norte 1662 · Tumbes · Perú</span><span>© 2026 Colegio Santa Maria</span></footer>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([-3.5669, -80.4515], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+        L.marker([-3.5669, -80.4515]).addTo(map).bindPopup('<strong>SANTA MARIA</strong><br>Carretera Tumbes Norte 1662').openPopup();
+        const slides = [...document.querySelectorAll('.slide')];
+        const dots = [...document.querySelectorAll('.dot')];
+        let current = 0;
+        function showSlide(index) { current = (index + slides.length) % slides.length; slides.forEach((slide, i) => slide.classList.toggle('active', i === current)); dots.forEach((dot, i) => dot.classList.toggle('active', i === current)); }
+        document.querySelector('.prev').addEventListener('click', () => showSlide(current - 1));
+        document.querySelector('.next').addEventListener('click', () => showSlide(current + 1));
+        dots.forEach((dot, i) => dot.addEventListener('click', () => showSlide(i)));
+        setInterval(() => showSlide(current + 1), 5000);
+    </script>
+</body>
+</html><?php /**PATH C:\Users\Dnilson\OneDrive\Desktop\Proyecto - copia\resources\views/contact.blade.php ENDPATH**/ ?>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios | Colegio Santa Maria</title>
+    <meta name="description" content="Conoce los servicios educativos del Colegio Santa Maria.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --blue:#126bc1; --navy:#173b67; --coral:#f16b68; --ink:#25405b; --pale:#f6fafc; --line:#e2ebf2; }
+        * { box-sizing:border-box; } html { scroll-behavior:smooth; } body { margin:0; color:var(--ink); background:#fff; font-family:'DM Sans',sans-serif; } a { color:inherit; text-decoration:none; }
+        .topbar { padding:8px 5vw; display:flex; justify-content:space-between; color:#6d7e8d; background:#f7fbfe; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.06em; }
+        .topbar strong { color:var(--blue); }
+        header { min-height:82px; padding:14px 5vw; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); box-shadow:0 2px 10px rgba(22,65,108,.08); background:#fff; }
+        .brand { display:flex; align-items:center; gap:11px; color:var(--navy); font-weight:700; font-size:13px; letter-spacing:.08em; line-height:1.05; text-transform:uppercase; }
+        .crest { width:48px; height:56px; display:block; flex:0 0 auto; } .crest img { width:100%; height:100%; display:block; object-fit:contain; }
+        nav { display:flex; align-items:center; gap:clamp(18px,3vw,42px); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; } nav a { transition:color .2s; } nav a:hover,nav a.active { color:var(--coral); } .nav-cta { padding:11px 16px; color:#fff!important; background:var(--blue); }
+        .hero { min-height:375px; display:grid; place-items:center; text-align:center; color:#fff; background-position:center; background-size:cover; }
+        .hero-content { padding:65px 5vw; } .eyebrow { font-size:12px; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:#f7d16f; } h1,h2,h3 { margin:0; font-family:'Playfair Display',serif; } h1 { margin-top:16px; font-size:clamp(38px,6vw,70px); line-height:1.03; text-transform:uppercase; text-shadow:0 2px 14px rgba(0,0,0,.2); }
+        .intro { padding:64px 8vw; text-align:center; background:#fff; } .intro p { max-width:950px; margin:0 auto; color:#214d7d; font-size:16px; font-weight:600; line-height:1.8; }
+        .levels { padding:70px 5vw 78px; background:var(--pale); } .section-head { margin:0 auto 38px; text-align:center; } .section-head .eyebrow { color:var(--blue); } .section-head h2 { margin-top:11px; color:var(--navy); font-size:clamp(32px,4vw,50px); }
+        .level-grid { max-width:1120px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:25px; } .level { padding:30px 25px 28px; text-align:center; background:#fff; border:1px solid var(--line); box-shadow:0 8px 22px rgba(24,76,125,.08); transition:transform .2s,box-shadow .2s; } .level:hover { transform:translateY(-5px); box-shadow:0 14px 28px rgba(24,76,125,.14); }
+        .level-icon { width:60px; height:60px; margin:0 auto 14px; display:grid; place-items:center; color:#fff; background:var(--blue); border-radius:50%; font-size:26px; } .level:nth-child(2) .level-icon { background:#ef706e; } .level:nth-child(3) .level-icon { background:#4363a4; } .level h3 { color:var(--coral); font-size:27px; } .level p { margin:13px 0 0; color:#5c6f80; font-size:14px; line-height:1.7; }
+        .social { padding:60px 5vw; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; } .social-card { min-height:138px; padding:26px; display:flex; align-items:center; justify-content:space-between; color:#fff; } .social-card:nth-child(1) { background:#161616; } .social-card:nth-child(2) { background:#ea4b82; } .social-card:nth-child(3) { background:#4162a0; } .social-card strong { display:block; font-size:18px; line-height:1.5; } .social-card span { width:48px; height:48px; display:grid; place-items:center; color:#263b58; background:#fff; border-radius:50%; font-size:22px; }
+        .statement { padding:58px 8vw; color:#214d7d; background:#fff; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line); } .statement p { max-width:900px; margin:0 auto; font-size:17px; font-weight:600; line-height:1.8; }
+        .gallery { padding:70px 5vw 82px; } .gallery-grid { max-width:1200px; margin:auto; display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:180px; gap:3px; } .gallery-grid div { background-position:center; background-size:cover; } .gallery-grid div:nth-child(1) { background-image:url('https://www.lareparacion.edu.pe/sitepad-data/uploads/2026/05/SANTISIMO-1.jpeg'); } .gallery-grid div:nth-child(2) { background-image:url('https://www.lareparacion.edu.pe/sitepad-data/uploads/2026/05/IMAGEN-2.jpeg'); } .gallery-grid div:nth-child(3) { background-image:url('https://www.lareparacion.edu.pe/sitepad-data/uploads/2026/05/IMAGEN-9.jpeg'); } .gallery-grid div:nth-child(4) { background-image:url('https://www.lareparacion.edu.pe/sitepad-data/uploads/2026/05/IMAGEN-5.jpeg'); } .gallery-grid div:nth-child(5) { background-image:url('https://www.lareparacion.edu.pe/sitepad-data/uploads/2026/05/IMAGEN-55.jpeg'); } .gallery-grid div:nth-child(6) { background-image:url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=900&q=80'); } .gallery-grid div:first-child { grid-row:span 2; } .gallery-grid div:nth-child(5) { grid-column:span 2; }
+        .info { padding:60px 8vw; display:flex; justify-content:space-between; gap:40px; color:#5d6872; background:#f7fafc; } .info h2 { color:#394b5c; font:700 26px 'DM Sans',sans-serif; text-transform:uppercase; } .info p { line-height:1.8; } .info strong { color:#3e4d5a; } .info-mark { align-self:center; color:var(--blue); font:700 42px 'Playfair Display',serif; }
+        footer { padding:22px 5vw; display:flex; justify-content:space-between; color:#fff; background:#1f609e; font-size:13px; }
+        @media(max-width:760px) { .topbar { justify-content:center; } .topbar span:first-child,nav a:not(.nav-cta) { display:none; } header { padding:14px 5vw; } .level-grid,.social { grid-template-columns:1fr; } .gallery-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:145px; } .gallery-grid div:first-child { grid-row:span 1; } .gallery-grid div:nth-child(5) { grid-column:span 1; } .info,footer { display:block; } .info-mark { margin-top:25px; } footer span { display:block; margin-top:8px; } }
+    </style>
+</head>
+<body>
+    @php($siteImages = \App\Http\Controllers\SiteImagesController::all())
+    <div class="topbar"><span>{{ $config['lema'] ?? 'Educación integral · Inicial · Primaria · Secundaria' }}</span><strong>{{ $config['telefono'] ?? 'Admisiones 2027' }}</strong></div>
+    <header><a class="brand" href="{{ route('home') }}"><span class="crest"><img src="{{ asset('images/santa-maria-logo.svg') }}" alt="Escudo Santa Maria"></span><span>{{ $config['nombre_colegio'] ?? 'Colegio Santa Maria' }}</span></a>@include('partials.public-nav', ['active' => 'servicios'])</header>
+    <main>
+        <section class="hero" data-image="{{ optional($banners->first())->imagen ?: $siteImages['services_hero'] }}"><div class="hero-content"><div class="eyebrow">Una educación con propósito</div><h1>{{ $config['nombre_colegio'] ?? 'Colegio Santa Maria' }}</h1></div></section>
+        <section class="intro"><p>{{ $config['mision'] ?? 'En el Colegio Santa Maria formamos personas con valores, fe y liderazgo para transformar el mundo.' }}</p></section>
+        <section class="levels"><div class="section-head"><div class="eyebrow">Nuestra propuesta educativa</div><h2>Servicios por nivel</h2></div><div class="level-grid">@foreach ($levels as $level)<article class="level"><div class="level-icon">✦</div><h3>{{ $level->nombre }}</h3><p>{{ $level->descripcion ?: 'Acompañamos el crecimiento académico, humano y espiritual de nuestros estudiantes.' }}</p></article>@endforeach</div></section>
+        <section class="social"><a class="social-card" href="#contacto"><strong>Conócenos a través de<br>YouTube</strong><span>▶</span></a><a class="social-card" href="#contacto"><strong>Visítanos en<br>Instagram</strong><span>◎</span></a><a class="social-card" href="#contacto"><strong>Síguenos en<br>Facebook</strong><span>f</span></a></section>
+        <section class="statement"><p>Promovemos un ambiente de fe, amor, alegría y valores, inspirados en el servicio, la solidaridad y el compromiso con el bien y la construcción de una sociedad más humana y fraterna.</p></section>
+        <section class="gallery"><div class="section-head"><div class="eyebrow">Vida Santa Maria</div><h2>Momentos que dejan huella</h2></div><div class="gallery-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div></section>
+        <section class="info" id="contacto"><div><h2>Información</h2><p><strong>COLEGIO SANTA MARIA</strong></p><p><strong>Dirección:</strong> Av. Los Cedros 170, Lima<br><strong>Correo:</strong> admisiones@santamaria.edu.pe<br><strong>Recepción:</strong> +51 987 654 321</p></div><div class="info-mark">S<br><small>Santa Maria</small></div></section>
+    </main>
+    <footer><span>Av. Los Cedros 170 · Lima · Perú</span><span>© 2026 Colegio Santa Maria</span></footer>
+<script>document.querySelectorAll('[data-image]').forEach((element) => { element.style.backgroundImage = `linear-gradient(90deg,rgba(9,77,142,.22),rgba(9,77,142,.34)),url("${element.dataset.image}")`; });</script>
+</body>
+</html>

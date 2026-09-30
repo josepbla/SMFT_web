@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastoral | Colegio Santa Maria</title>
+    <meta name="description" content="Pastoral del Colegio Santa Maria: fe, comunidad y formación integral.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --blue:#126bc1; --navy:#173b67; --coral:#f16b68; --ink:#30465e; --pale:#f5f8fb; --line:#e2e9f0; }
+        * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:#fff; font-family:'DM Sans',sans-serif; } a { color:inherit; text-decoration:none; }
+        .topbar { padding:8px 5vw; display:flex; justify-content:space-between; color:#6d7e8d; background:#f7fbfe; border-bottom:1px solid var(--line); font-size:11px; letter-spacing:.06em; } .topbar strong { color:var(--blue); }
+        header { min-height:82px; padding:14px 5vw; display:flex; align-items:center; justify-content:space-between; background:#fff; border-bottom:1px solid var(--line); box-shadow:0 2px 10px rgba(22,65,108,.08); } .brand { display:flex; align-items:center; gap:11px; color:var(--navy); font-weight:700; font-size:13px; letter-spacing:.08em; line-height:1.05; text-transform:uppercase; } .crest { width:48px; height:56px; display:block; flex:0 0 auto; } .crest img { width:100%; height:100%; display:block; object-fit:contain; }
+        nav { display:flex; align-items:center; gap:clamp(16px,2.6vw,36px); font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; } nav a { transition:color .2s; } nav a:hover,nav a.active { color:var(--coral); } .nav-cta { padding:11px 16px; color:#fff!important; background:var(--blue); }
+        .hero { min-height:470px; display:grid; place-items:center; text-align:center; color:#202b37; background-position:center; background-size:cover; } .hero h1 { max-width:900px; margin:0; padding:18px 5vw; font:700 clamp(34px,5vw,68px)/1.15 'DM Sans',sans-serif; letter-spacing:.02em; text-transform:uppercase; text-shadow:0 2px 3px rgba(255,255,255,.5); }
+        .intro { padding:62px 8vw 67px; text-align:center; } .intro p { max-width:1020px; margin:0 auto; color:#263f5d; font-size:16px; font-weight:600; line-height:1.85; }
+        .pillars { padding:70px 5vw; background:var(--pale); } .heading { margin:0 auto 35px; text-align:center; } .eyebrow { color:var(--blue); font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; } h2,h3 { font-family:'Playfair Display',serif; } .heading h2 { margin:10px 0 0; color:var(--navy); font-size:clamp(32px,4vw,48px); }
+        .pillar-grid { max-width:1100px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:20px; } .pillar { min-height:210px; padding:28px 25px; background:#fff; border:1px solid var(--line); box-shadow:0 6px 18px rgba(31,73,113,.08); } .pillar span { color:var(--coral); font-size:24px; } .pillar h3 { margin:12px 0 8px; color:var(--navy); font-size:25px; } .pillar p { margin:0; color:#617184; font-size:14px; line-height:1.7; }
+        .calendar { padding:68px 8vw; } .calendar-grid { max-width:1060px; margin:30px auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .event { padding:23px; background:#fff8f5; border-left:4px solid var(--coral); } .event strong { display:block; color:var(--navy); font-size:16px; } .event span { display:block; margin-top:8px; color:#758393; font-size:13px; line-height:1.5; }
+        .quote { padding:68px 8vw; color:#fff; background:var(--navy); text-align:center; } .quote p { max-width:820px; margin:0 auto; font:600 clamp(23px,3vw,35px)/1.35 'Playfair Display',serif; } .quote small { display:block; margin-top:20px; color:#f4cf75; letter-spacing:.14em; text-transform:uppercase; }
+        .gallery { padding:70px 5vw; } .gallery-grid { max-width:1200px; margin:auto; display:grid; grid-template-columns:2fr 1fr 1fr; grid-template-rows:190px 190px 180px; gap:8px; } .gallery-grid div { min-width:0; min-height:0; background-position:center; background-size:cover; border-radius:6px; overflow:hidden; } .gallery-grid div:first-child { grid-row:span 2; }
+        .social { padding:50px 5vw; display:grid; grid-template-columns:repeat(3,1fr); gap:16px; } .social a { padding:28px; color:#fff; font-weight:700; text-align:center; } .social a:nth-child(1) { background:#161616; } .social a:nth-child(2) { background:#ea4b82; } .social a:nth-child(3) { background:#4162a0; }
+        footer { padding:22px 5vw; display:flex; justify-content:space-between; color:#fff; background:#1f609e; font-size:13px; }
+        @media(max-width:760px) { .topbar { justify-content:center; } .topbar span:first-child,nav a:not(.nav-cta) { display:none; } header { padding:14px 5vw; } .hero { min-height:390px; } .hero h1 { font-size:31px; } .pillar-grid,.calendar-grid,.social { grid-template-columns:1fr; } .gallery-grid { grid-template-columns:repeat(2,1fr); grid-auto-rows:145px; } footer { display:block; } footer span { display:block; margin-top:8px; } }
+    </style>
+</head>
+<body>
+    <div class="topbar"><span>Educación integral · Inicial · Primaria · Secundaria</span><strong>Admisiones 2027 · +51 987 654 321</strong></div>
+    <header><a class="brand" href="<?php echo e(route('home')); ?>"><span class="crest"><img src="<?php echo e(asset('images/santa-maria-logo.svg')); ?>" alt="Escudo Santa Maria"></span><span>Colegio<br>Santa Maria</span></a><?php echo $__env->make('partials.public-nav', ['active' => 'pastoral'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?></header>
+    <main>
+        <section class="hero" id="pastoral-hero" data-image="<?php echo e($images['hero']); ?>"><h1>“Todo por Jesús<br>en espíritu de reparación”</h1></section>
+        <section class="intro"><p>La Pastoral del Colegio Santa Maria acompaña a niños, adolescentes y familias en la preparación para vivir los sacramentos de iniciación cristiana: Bautismo, Primera Comunión y Confirmación. Su misión es fortalecer el encuentro personal con Jesús y fomentar una vida de fe comprometida con los valores del Evangelio.</p></section>
+        <section class="pillars"><div class="heading"><div class="eyebrow">Nuestra misión</div><h2>Una comunidad que camina unida</h2></div><div class="pillar-grid"><article class="pillar"><span>✦</span><h3>Formación en la fe</h3><p>Espacios de catequesis, oración y reflexión que ayudan a descubrir el sentido de la vida cristiana.</p></article><article class="pillar"><span>♡</span><h3>Familia y comunidad</h3><p>Encuentros para fortalecer la vida familiar, la fe compartida y los vínculos de nuestra comunidad educativa.</p></article><article class="pillar"><span>✧</span><h3>Servicio y compromiso</h3><p>Promovemos una participación activa, solidaria y comprometida con el bien común.</p></article></div></section>
+        <section class="calendar"><div class="heading"><div class="eyebrow">Vivencias pastorales</div><h2>Celebraciones durante el año</h2></div><div class="calendar-grid"><div class="event"><strong>Semana Santa</strong><span>Tiempo de encuentro, oración y renovación de nuestra fe.</span></div><div class="event"><strong>Mes Mariano</strong><span>Celebramos a María como guía y compañera de nuestro camino.</span></div><div class="event"><strong>Sagrado Corazón de Jesús</strong><span>Una celebración que nos recuerda vivir con amor y servicio.</span></div><div class="event"><strong>Mes de la Biblia</strong><span>La Palabra ilumina nuestras decisiones y nuestra convivencia.</span></div><div class="event"><strong>Señor de los Milagros</strong><span>Compartimos una tradición de fe con toda la comunidad.</span></div><div class="event"><strong>Adviento</strong><span>Preparamos el corazón para celebrar la Navidad.</span></div></div></section>
+        <section class="quote"><p>“La fe se fortalece cuando se comparte, se celebra y se convierte en servicio.”</p><small>Pastoral Santa Maria</small></section>
+        <section class="gallery"><div class="heading"><div class="eyebrow">Vida pastoral</div><h2>Momentos de encuentro</h2></div><div class="gallery-grid"><div data-image="<?php echo e($images['gallery_1']); ?>"></div><div data-image="<?php echo e($images['gallery_2']); ?>"></div><div data-image="<?php echo e($images['gallery_3']); ?>"></div><div data-image="<?php echo e($images['gallery_4']); ?>"></div><div data-image="<?php echo e($images['gallery_5']); ?>"></div><div data-image="<?php echo e($images['gallery_6']); ?>"></div></div></section>
+        <section class="social"><a href="<?php echo e(route('contact')); ?>">Conócenos a través de YouTube</a><a href="<?php echo e(route('contact')); ?>">Visítanos en Instagram</a><a href="<?php echo e(route('contact')); ?>">Síguenos en Facebook</a></section>
+    </main>
+    <footer><span>Av. Los Cedros 170 · Lima · Perú</span><span>© 2026 Colegio Santa Maria</span></footer>
+    <script>
+        document.querySelectorAll('[data-image]').forEach((element) => {
+            element.style.backgroundImage = `url("${element.dataset.image}")`;
+        });
+        document.querySelector('#pastoral-hero').style.backgroundImage = `linear-gradient(90deg,rgba(255,255,255,.14),rgba(255,255,255,.03)),url("${document.querySelector('#pastoral-hero').dataset.image}")`;
+    </script>
+</body>
+</html><?php /**PATH C:\Users\Dnilson\OneDrive\Desktop\Proyecto - copia\resources\views/pastoral.blade.php ENDPATH**/ ?>
